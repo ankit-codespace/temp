@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEEE MST2 — Exam-Ready Notes v3</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f5f4f0;color:#1a1a1a;font-size:15px;line-height:1.75}
+.top-bar{background:#1a1a1a;color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;position:sticky;top:0;z-index:100}
+.top-bar h1{font-size:14px;font-weight:700}
+.top-bar span{font-size:11px;color:#aaa}
+.tab-bar{display:flex;background:#fff;border-bottom:2px solid #e5e5e0;padding:0 10px;gap:1px;position:sticky;top:43px;z-index:99;overflow-x:auto}
+.tab{padding:10px 13px;font-size:12px;font-weight:700;border:none;background:none;cursor:pointer;color:#888;border-bottom:3px solid transparent;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+.tab:hover:not(.active){color:#333}
+.tab.active{color:#1a1a1a;border-bottom-color:#1a1a1a}
+.tab.t1.active{color:#dc2626;border-bottom-color:#dc2626}
+.tab.t2.active{color:#1d4ed8;border-bottom-color:#1d4ed8}
+.tab.t3.active{color:#6b7280;border-bottom-color:#6b7280}
+.panel{display:none;max-width:840px;margin:0 auto;padding:16px 14px 60px}
+.panel.active{display:block}
+
+.priority-banner{background:linear-gradient(135deg,#7f1d1d,#dc2626);color:#fff;border-radius:12px;padding:15px 18px;margin-bottom:16px}
+.priority-banner h2{font-size:15px;font-weight:700;margin-bottom:3px}
+.priority-banner p{font-size:12px;opacity:.9}
+.score-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.score-card{background:rgba(255,255,255,.15);border-radius:8px;padding:9px 13px;flex:1;min-width:110px}
+.score-card .num{font-size:20px;font-weight:700}
+.score-card .lbl{font-size:10px;opacity:.8;margin-top:1px}
+
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:560px){.p-grid{grid-template-columns:1fr}}
+.p-card{border-radius:10px;padding:13px 15px;border:1px solid}
+.p-card-1{background:#fff1f1;border-color:#fca5a5}
+.p-card-2{background:#eff6ff;border-color:#93c5fd}
+.p-card-3{background:#f9fafb;border-color:#d1d5db}
+.p-card-title{font-size:12px;font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:5px}
+.p-item{font-size:12px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.p-item:last-child{border-bottom:none}
+.p-count{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;white-space:nowrap}
+.c-red{background:#dc2626;color:#fff}
+.c-blue{background:#1d4ed8;color:#fff}
+.c-gray{background:#6b7280;color:#fff}
+
+.topic{background:#fff;border-radius:12px;border:1px solid #e5e5e0;margin-bottom:14px;overflow:hidden}
+.topic-header{padding:12px 16px 10px;border-bottom:1px solid #f0f0ea;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.topic-title{font-size:14px;font-weight:700}
+.topic-body{padding:14px 16px}
+
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.badge-t1{background:#dc2626;color:#fff}
+.badge-t2{background:#1d4ed8;color:#fff}
+.badge-t3{background:#6b7280;color:#fff}
+
+/* PYQ + ANSWER BLOCK — unified */
+.qa-block{border:1.5px solid #fde68a;border-radius:10px;margin:12px 0;overflow:hidden}
+.qa-q{background:#fefce8;padding:10px 13px}
+.qa-q-title{font-size:10px;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.qa-q-text{font-size:13px;color:#1c1917;line-height:1.6;font-weight:600}
+.qa-a{background:#f0fdf4;border-top:1.5px solid #fde68a;padding:12px 14px}
+.qa-a-title{font-size:10px;font-weight:800;color:#16a34a;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.qa-a p{font-size:13px;color:#14532d;margin-bottom:8px;line-height:1.8}
+.qa-a p:last-child{margin-bottom:0}
+.qa-a .f{font-family:monospace;background:#e7fef0;padding:2px 7px;border-radius:4px;display:inline-block;margin:2px 0;color:#166534;font-size:13px}
+.qa-a table{width:100%;border-collapse:collapse;font-size:12px;margin:5px 0}
+.qa-a table th{background:#dcfce7;padding:5px 8px;text-align:left;font-weight:700;color:#166534;font-size:11px}
+.qa-a table td{padding:5px 8px;border-bottom:1px solid #bbf7d0;vertical-align:top;font-size:12px}
+
+.pyq-src{display:inline-block;font-size:10px;font-weight:700;color:#b45309;background:#fef3c7;padding:1px 6px;border-radius:8px;white-space:nowrap}
+.rep-badge{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#dc2626;padding:1px 7px;border-radius:8px}
+
+.formula-box{background:#f8f7ff;border:1px solid #d4d0ff;border-radius:8px;padding:10px 13px;margin:8px 0;font-family:monospace;font-size:13px;color:#3730a3}
+.formula-box .flabel{font-family:system-ui;font-size:10px;font-weight:700;color:#6366f1;margin-bottom:4px;letter-spacing:.5px;text-transform:uppercase}
+.formula-box .f{margin-bottom:3px}
+
+.diag-box{border:2px dashed #d1d5db;border-radius:8px;padding:10px 13px;margin:10px 0;background:#f9fafb}
+.must-diag{border-color:#dc2626;background:#fff5f5}
+.diag-box .dlabel{font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;margin-bottom:6px;letter-spacing:.4px}
+.must-diag .dlabel{color:#dc2626}
+.diag-box .ddesc{font-size:12px;color:#4b5563;line-height:1.65;text-align:left}
+.diag-btn{display:inline-block;background:#1a1a1a;color:#fff;border-radius:6px;padding:5px 13px;font-size:11px;font-weight:500;text-decoration:none;margin-top:7px}
+
+.cmp{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0}
+.cmp th{background:#f0f0ea;font-weight:700;padding:7px 9px;text-align:left;border-bottom:2px solid #e5e5e0;font-size:11px}
+.cmp td{padding:6px 9px;border-bottom:1px solid #f0f0ea;vertical-align:top}
+.cmp tr:last-child td{border-bottom:none}
+.cmp tr:nth-child(even) td{background:#fafaf8}
+
+.tip{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:9px 12px;margin:8px 0;font-size:13px;color:#78350f;line-height:1.7}
+.note{background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:9px 12px;margin:8px 0;font-size:13px;color:#0c4a6e;line-height:1.7}
+
+.sub{font-size:13px;font-weight:700;color:#1a1a1a;margin:14px 0 6px;padding-top:10px;border-top:1px solid #f0f0ea}
+.sub:first-child{border-top:none;margin-top:0;padding-top:0}
+
+.sec-intro{background:#fff;border-radius:10px;padding:12px 15px;margin-bottom:13px;border:1px solid #e5e5e0;font-size:12px;color:#555;display:flex;gap:10px}
+.sec-intro .icon{font-size:18px;flex-shrink:0}
+
+.low-label{background:#f3f4f6;border:1px dashed #9ca3af;border-radius:8px;padding:8px 13px;font-size:12px;color:#6b7280;font-weight:600;margin:20px 0 10px;text-align:center}
+
+/* prose paragraphs inside topic-body */
+.topic-body p{font-size:13px;color:#1c1917;margin-bottom:9px;line-height:1.8}
+.topic-body p:last-child{margin-bottom:0}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>⚡ BEEE MST2 — Exam-Ready Notes v3 · 30 Marks</h1>
+  <span>4 confirmed PYQs · CGC Mohali + CEC Jhanjeri · Every Q answered below it</span>
+</div>
+
+<div class="tab-bar">
+  <button class="tab t1 active" onclick="show('plan',this)">🎯 PLAN</button>
+  <button class="tab t1" onclick="show('seca',this)">⚡ SEC A (5M)</button>
+  <button class="tab t1" onclick="show('mcb',this)">🔌 MCB+ELCB</button>
+  <button class="tab t1" onclick="show('earth',this)">🌍 Earthing</button>
+  <button class="tab t1" onclick="show('lvdt',this)">📡 LVDT</button>
+  <button class="tab t2" onclick="show('trans',this)">🔀 Transducers</button>
+  <button class="tab t2" onclick="show('meter',this)">📊 Multimeter</button>
+  <button class="tab t2" onclick="show('im',this)">⚙️ 3-Phase IM</button>
+  <button class="tab t2" onclick="show('num',this)">🔢 Numericals</button>
+  <button class="tab t2" onclick="show('auto',this)">🔄 Auto-TF</button>
+  <button class="tab t2" onclick="show('wires',this)">🔌 Wires+Cables</button>
+  <button class="tab t3" onclick="show('low',this)">⚪ Low Priority</button>
+</div>
+
+<!-- ===== PLAN ===== -->
+<div id="plan" class="panel active">
+<div class="priority-banner">
+  <h2>🎯 MST2 Strategy — 4 Real PYQs Analysed · Score Target: 27–28/30</h2>
+  <p>Papers: CGC Mohali (2025-26) · CEC Jhanjeri (Apr 2025) · CEC Jhanjeri (Nov 2024) · CEC (partial). All MST2 papers, same subject UEC101 / BEEE.</p>
+  <div class="score-row">
+    <div class="score-card"><div class="num">9.5<span style="font-size:13px">/10</span></div><div class="lbl">Confidence</div></div>
+    <div class="score-card"><div class="num">4</div><div class="lbl">Tier 1 Topics</div></div>
+    <div class="score-card"><div class="num">27+</div><div class="lbl">Realistic Score</div></div>
+    <div class="score-card"><div class="num">30</div><div class="lbl">Max Marks</div></div>
+  </div>
+</div>
+<div class="p-grid">
+  <div class="p-card p-card-1">
+    <div class="p-card-title">🔴 TIER 1 — Study First (Guaranteed to come)</div>
+    <div class="p-item"><span>MCB — construction, diagram, types</span><span class="p-count c-red">4/4 PYQs</span></div>
+    <div class="p-item"><span>ELCB — working, diagram, vs MCB</span><span class="p-count c-red">4/4 PYQs</span></div>
+    <div class="p-item"><span>Earthing — necessity, types, diagrams</span><span class="p-count c-red">4/4 PYQs</span></div>
+    <div class="p-item"><span>LVDT — construction, null position, graph</span><span class="p-count c-red">4/4 PYQs</span></div>
+    <div class="p-item"><span>Wires &amp; Cables — types, properties</span><span class="p-count c-red">3–4/4 PYQs</span></div>
+  </div>
+  <div class="p-card p-card-2">
+    <div class="p-card-title">🔵 TIER 2 — Study Second (Very likely)</div>
+    <div class="p-item"><span>Transducers — types, classification</span><span class="p-count c-blue">3/4 PYQs</span></div>
+    <div class="p-item"><span>Analog vs Digital Multimeter</span><span class="p-count c-blue">3/4 PYQs</span></div>
+    <div class="p-item"><span>3-Phase IM + Torque-Slip curve</span><span class="p-count c-blue">3/4 PYQs</span></div>
+    <div class="p-item"><span>Transformer Efficiency Numerical</span><span class="p-count c-blue">3/4 PYQs</span></div>
+    <div class="p-item"><span>Auto-Transformer + copper saving</span><span class="p-count c-blue">2/4 PYQs</span></div>
+  </div>
+</div>
+<div class="p-card p-card-3" style="margin-bottom:14px">
+  <div class="p-card-title">⚪ TIER 3 — Only if time left</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
+    <span style="font-size:11px;background:#f3f4f6;padding:2px 9px;border-radius:20px">SFU / MCCB</span>
+    <span style="font-size:11px;background:#f3f4f6;padding:2px 9px;border-radius:20px">Batteries</span>
+    <span style="font-size:11px;background:#f3f4f6;padding:2px 9px;border-radius:20px">Energy Calculations</span>
+    <span style="font-size:11px;background:#f3f4f6;padding:2px 9px;border-radius:20px">BH Curve</span>
+    <span style="font-size:11px;background:#f3f4f6;padding:2px 9px;border-radius:20px">Synchronous Generator</span>
+    <span style="font-size:11px;background:#f3f4f6;padding:2px 9px;border-radius:20px">DC Motor</span>
+  </div>
+</div>
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">📋 Exam Pattern — What to Expect in MST2</span></div>
+  <div class="topic-body">
+    <table class="cmp">
+      <tr><th>Section</th><th>Marks</th><th>Structure</th><th>Strategy</th></tr>
+      <tr><td><strong>Sec A</strong></td><td>5 × 1 = 5</td><td>1 mandatory Q with 5 parts (a–e). Mix of 1-liners, definitions, mini-calculations.</td><td>Do all 5. No choice. Takes 10 mins.</td></tr>
+      <tr><td><strong>Sec B</strong></td><td>3 × 5 = 15</td><td>3 questions, each has an OR. Attempt all 3.</td><td>Always pick the question you know better. MCB/ELCB and LVDT almost always appear here.</td></tr>
+      <tr><td><strong>Sec C</strong></td><td>1 × 10 = 10</td><td>One question with 2 parts (a+b), OR another 2 parts.</td><td>Earthing + Multimeter OR MCB + Transducers = most likely combination.</td></tr>
+    </table>
+    <div class="tip" style="margin-top:10px"><strong>Time plan (90 mins):</strong> Sec A = 10 mins | Sec B (3 Qs) = 12 mins each | Sec C = 25 mins | Buffer = 19 mins. Draw a labeled diagram for every 5+ mark answer — it earns marks on its own.</div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SEC A ===== -->
+<div id="seca" class="panel">
+<div class="sec-intro">
+  <span class="icon">⚡</span>
+  <div><strong>Section A — 5 marks mandatory. All 5 questions must be answered.</strong><br>These exact types repeat across papers. Read each question and its answer carefully — keep your exam answer short and direct, matching the style shown.</div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Synchronous Speed &amp; Slip — 1-mark numericals</span><span class="badge badge-t1">🔴 Repeated 2× PYQs</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec A (a)</span><span class="rep-badge">⭐ REPEATED</span></div>
+        <div class="qa-q-text">A 3-phase induction motor has 30 poles and is connected to a 50 Hz AC supply. Find the synchronous speed of the Rotating Magnetic Field (RMF) in the motor.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>Using the formula <span class="f">Ns = 120f / P</span>, we get <span class="f">Ns = 120 × 50 / 30 = 200 rpm</span>. Therefore the synchronous speed of the RMF is <strong>200 rpm</strong>.</p>
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Nov 2024 · Sec A (a)</span><span class="rep-badge">⭐ REPEATED</span></div>
+        <div class="qa-q-text">The synchronous speed of an induction motor is 1500 r.p.m and the rotor speed is 1440 r.p.m. Interpret the slip.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>Using the formula <span class="f">s = (Ns − Nr) / Ns × 100</span>, we get <span class="f">s = (1500 − 1440) / 1500 × 100 = 4%</span>. Therefore the slip of the induction motor is <strong>4%</strong>.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">MCB, ELCB &amp; MCCB — 1-mark questions</span><span class="badge badge-t1">🔴 Repeated 3× PYQs</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec A (b)</span><span class="rep-badge">⭐ REPEATED</span></div>
+        <div class="qa-q-text">List the primary functions of a Miniature Circuit Breaker (MCB).</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>An MCB serves four main functions. First, it provides overload protection by tripping automatically when excess current flows continuously. Second, it provides short circuit protection by tripping instantly when a sudden large fault current occurs. Third, it works as a manual switch that can be turned ON or OFF. Fourth, it is reusable — after a trip, it can simply be reset by hand, unlike a fuse which must be replaced.</p>
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec A (a)</span><span class="rep-badge">⭐ REPEATED</span></div>
+        <div class="qa-q-text">Illustrate the usage of ELCB.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>An ELCB (Earth Leakage Circuit Breaker) is used to protect humans from electric shock. It detects any leakage of current to earth, even as small as 30 mA, and trips the circuit within 30 milliseconds — which is fast enough to prevent a fatal shock. It is installed in homes, bathrooms, kitchens, swimming pool areas, and any other location where the risk of electric shock is high.</p>
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec A (b)</span></div>
+        <div class="qa-q-text">Which breaker can handle higher current capacities — MCB or MCCB?</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>MCCB (Moulded Case Circuit Breaker) handles much higher current than MCB. An MCB is rated up to 100A and is used in homes and commercial buildings. An MCCB is rated up to 1600A and is used in industrial plants and main distribution boards. Additionally, MCCB has adjustable trip settings while MCB does not.</p>
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Nov 2024 · Sec A (c)</span><span class="rep-badge">⭐ REPEATED</span></div>
+        <div class="qa-q-text">What is the difference between a fuse and a circuit breaker?</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <table>
+          <tr><th>Fuse</th><th>Circuit Breaker (MCB)</th></tr>
+          <tr><td>Melts and must be replaced after a fault</td><td>Trips and can be reset manually — reusable</td></tr>
+          <tr><td>One-time use only</td><td>Can operate hundreds of times</td></tr>
+          <tr><td>Slower at moderate overloads</td><td>Faster and more precise</td></tr>
+          <tr><td>Very cheap</td><td>Costlier but economical long-term</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec A (a)</span></div>
+        <div class="qa-q-text">List the primary functions of SFU in distribution systems.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>An SFU (Switch Fuse Unit) is a combination of a manual isolating switch and a fuse in one unit. Its main function is to completely disconnect equipment from the supply for safe maintenance — this is called visible isolation. It also provides overcurrent protection through its built-in fuse. It is commonly used as the incoming device before a distribution board and is rated up to 800A.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">LVDT &amp; Transducer — 1-mark questions</span><span class="badge badge-t1">🔴 Repeated 3× PYQs</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec A (c)</span><span class="rep-badge">⭐ REPEATED</span></div>
+        <div class="qa-q-text">Interpret the characteristic curve of an LVDT.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>The LVDT characteristic curve is a straight line passing through the origin. The X-axis shows core displacement and the Y-axis shows output voltage. When the core is at the centre (null position), the output voltage is zero. When the core moves to the right, the output voltage becomes positive and increases proportionally with distance. When the core moves to the left, the output voltage becomes negative. The straight portion in the middle is called the linear range, which is the useful operating region of the LVDT. Beyond this region, the curve bends and enters saturation.</p>
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec A (c–d) / CEC Nov 2024 · Sec A (e)</span><span class="rep-badge">⭐ REPEATED</span></div>
+        <div class="qa-q-text">List some applications of the Linear Variable Differential Transformer (LVDT).</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>LVDT is used in many practical applications. It is used for displacement measurement in CNC machines to track the position of a cutting tool. It measures pressure by detecting the deflection of a diaphragm caused by pressure. It measures force or load by detecting how much a spring compresses. It is also used for liquid level measurement by tracking a float that rises with the liquid. In aircraft, it measures the position of flaps and control surfaces.</p>
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Nov 2024 · Sec A (d)</span><span class="rep-badge">⭐ REPEATED</span></div>
+        <div class="qa-q-text">Define transducer and give an example.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>A transducer is a device that converts one form of energy into another. In instrumentation, it converts a physical quantity such as displacement, pressure, or temperature into a proportional electrical signal like voltage or current, so that it can be measured or used for control. For example, an LVDT converts linear displacement into AC voltage, and a thermocouple converts temperature difference into voltage.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Multimeter &amp; Power Flow — 1-mark questions</span><span class="badge badge-t2">🔵 Repeated 2–3× PYQs</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec A (e)</span><span class="rep-badge">⭐ REPEATED</span></div>
+        <div class="qa-q-text">Infer the electrical parameters measured using a digital multimeter.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>A digital multimeter measures DC voltage, AC voltage, DC current, and resistance. It also performs continuity testing, where it beeps if a wire or connection is unbroken. Advanced models can also measure capacitance, frequency, and test diodes.</p>
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec A (e)</span><span class="rep-badge">⭐ REPEATED</span></div>
+        <div class="qa-q-text">Demonstrate the power flow in an induction motor.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer</div>
+        <p>Power flows through an induction motor in stages. The input electrical power enters the stator, where stator copper loss (I²R) and stator iron loss (core loss) are subtracted. The remaining power crosses the air gap magnetically and reaches the rotor — this is called the air gap power (Pg). From this, rotor copper loss (equal to slip × Pg) is subtracted. What remains is the mechanical power developed, which equals (1 − slip) × Pg. After subtracting friction and windage losses, the final shaft output power is obtained, which does useful work.</p>
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Nov 2024 · Sec A (b)</span></div>
+        <div class="qa-q-text">List the different types of cables and wires with the help of neat sketches.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer (1-mark: name 3–4 types)</div>
+        <p>Common types include single-core wire (one conductor, used in electrical boards), multi-core cable (two or three conductors in one cable, for power supply), PVC insulated cable (insulated with PVC, used in domestic wiring up to 70°C), armoured cable or SWA (has steel wire armour for protection, used underground), and coaxial cable (inner and outer conductors, used for TV and internet signals).</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ===== MCB + ELCB ===== -->
+<div id="mcb" class="panel">
+<div class="sec-intro">
+  <span class="icon">🔌</span>
+  <div><strong>MCB + ELCB — TIER 1 · All 4 PYQs · 5 marks (Sec B) and 10 marks (Sec C)</strong><br>Every PYQ question appears here with its full exam-ready answer written in paragraphs. For the 10-mark Sec C question, write the MCB answer followed by the ELCB answer with both diagrams.</div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">MCB — Miniature Circuit Breaker</span><span class="badge badge-t1">🔴 4/4 PYQs · GUARANTEED</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec B Q2</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Illustrate the construction and working of a MCB with a labeled diagram.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p>An MCB (Miniature Circuit Breaker) is an automatic switching device that protects electrical circuits from damage caused by overload and short circuit currents. Unlike a fuse, which melts and needs replacement, an MCB trips automatically and can be reset manually, making it reusable.</p>
+        <p><strong>Construction:</strong> [Draw labeled diagram here — see diagram box below.] The main parts are a bimetallic strip, a solenoid or electromagnet coil, a trip latch, fixed and moving contacts, an arc-extinguishing chamber, and a toggle switch on the outside.</p>
+        <p><strong>Thermal Protection (for overload — slow action):</strong> Thermal protection is used when the current is moderately higher than normal for a longer time. It uses a bimetallic strip made of two metals such as brass and steel that are bonded together. When excess current flows, the strip heats up and bends because the two metals expand at different rates. This bending pushes the trip latch, which opens the moving contact away from the fixed contact, breaking the circuit. This action takes a few seconds to a few minutes and is designed for gradual overloads like a motor running under too much load.</p>
+        <p><strong>Magnetic Protection (for short circuit — instant action):</strong> Magnetic protection is used when a sudden, very large fault current flows due to a short circuit. It uses a solenoid or electromagnet coil that is connected in series with the circuit. During a short circuit, the heavy fault current makes the electromagnet very strong, which instantly pulls the plunger and trips the contacts in less than 10 milliseconds. This fast action protects equipment from severe damage before any heat can build up.</p>
+        <p><strong>Types:</strong> Type B trips at 3–5 times rated current and is used in homes for lighting. Type C trips at 5–10 times and is used in commercial buildings and small motors. Type D trips at 10–20 times and is used in industrial settings with large motors.</p>
+      </div>
+    </div>
+
+    <div class="must-diag diag-box">
+      <div class="dlabel">⚠️ MUST DRAW — MCB Internal Construction</div>
+      <div class="ddesc">Draw from left to right: Input terminal → Bimetallic strip (label: "bends on overload") → Solenoid coil (label: "pulls plunger on short circuit") → Trip latch → Moving contact + Fixed contact (show gap = circuit open) → Arc extinguishing chamber → Output terminal. Draw the toggle/knob switch at the top. Label every part clearly.</div>
+      <a class="diag-btn" href="https://www.google.com/search?q=MCB+internal+construction+diagram+bimetallic+strip+solenoid+labeled&tbm=isch" target="_blank">🔍 Search: MCB internal construction diagram</a>
+    </div>
+
+    <div class="qa-block" style="margin-top:12px">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec C Q5(a)</span><span class="rep-badge">⭐ 10 MARKS</span></div>
+        <div class="qa-q-text">Explain the construction and working principle of an MCB with a neat diagram.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (10 Marks)</div>
+        <p>Write the full 5-mark answer above, then add this additional content for 10 marks:</p>
+        <p><strong>Why MCB is better than a fuse:</strong> A fuse works on the same principle — it melts when excess current flows — but once it melts, it must be physically replaced. An MCB, on the other hand, simply trips and can be switched back on by hand. This makes MCB faster, more reliable, and more economical in the long run. It also has a clearly visible ON/OFF state, which is helpful during fault diagnosis.</p>
+        <p><strong>Arc Extinguishing:</strong> When the contacts open, a small arc forms between them due to the high voltage. The arc-extinguishing chamber inside the MCB uses metal arc splitter plates to divide and cool this arc, extinguishing it quickly and preventing damage to the contacts.</p>
+        <p><strong>Types of MCB (expanded):</strong> Type B is used in homes for lighting and socket circuits because these loads draw a steady current without surges. Type C is used for motors and fluorescent lamps that draw a slightly higher starting current. Type D is used for transformers and large industrial motors that draw very high inrush currents at startup.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">ELCB — Earth Leakage Circuit Breaker</span><span class="badge badge-t1">🔴 4/4 PYQs · GUARANTEED</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec B Q2</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Illustrate the construction and working of an ELCB with a labeled diagram. Describe its function in electrical safety.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p>An ELCB (Earth Leakage Circuit Breaker), also called an RCD (Residual Current Device), is a safety device that protects humans from fatal electric shocks. A current of just 30 mA passing through the human body can cause cardiac arrest, which takes less than 30 milliseconds to become fatal. An MCB cannot detect such small currents, so ELCB is specifically designed for human protection.</p>
+        <p><strong>Construction:</strong> [Draw labeled diagram — see diagram box below.] The key part is a toroidal (donut-shaped) iron core through which both the Live wire and the Neutral wire pass. A sensing coil is wound around this toroid. The output of the sensing coil is connected to a relay that controls the trip contacts.</p>
+        <p><strong>Working — Normal Condition:</strong> In a healthy circuit, the current going out through the Live wire is exactly equal to the current returning through the Neutral wire. Since both wires pass through the toroid in opposite directions, their magnetic fluxes cancel each other completely. The sensing coil gets zero output, so the relay stays off and the circuit remains connected.</p>
+        <p><strong>Working — Fault Condition:</strong> If a person accidentally touches a live part, some current flows through their body to earth instead of returning through the Neutral. This means the Live current becomes greater than the Neutral current, so the fluxes no longer cancel. The net flux in the toroid induces an EMF in the sensing coil, which energises the relay and opens the trip contacts — all within less than 30 milliseconds, which is fast enough to save the person's life.</p>
+        <p><strong>Trip settings:</strong> In residential installations, ELCB trips at 30 mA leakage to protect against electric shock. In industrial settings, it trips at 300 mA to protect against fire caused by leakage currents.</p>
+      </div>
+    </div>
+
+    <div class="must-diag diag-box">
+      <div class="dlabel">⚠️ MUST DRAW — ELCB Working Diagram</div>
+      <div class="ddesc">Draw: a donut-shaped (toroidal) iron core in the centre. Show the Live wire passing through the hole going forward (→) and the Neutral wire passing through the same hole going backward (←). Wind a sensing coil around the toroid and connect it to a relay symbol, which connects to the trip contacts. Label: "Normal: fluxes cancel, Vo = 0, no trip" and "Fault: net flux → sensing coil → relay trips in &lt;30ms".</div>
+      <a class="diag-btn" href="https://www.google.com/search?q=ELCB+RCD+toroidal+core+working+diagram+labeled&tbm=isch" target="_blank">🔍 Search: ELCB working principle diagram</a>
+    </div>
+
+    <div class="sub">MCB vs ELCB — Quick Comparison</div>
+    <table class="cmp">
+      <tr><th>Feature</th><th>MCB</th><th>ELCB</th></tr>
+      <tr><td>Protects against</td><td>Overload + Short circuit</td><td>Earth leakage / electric shock</td></tr>
+      <tr><td>Trip level</td><td>Several Amperes</td><td>30 mA (milliamps)</td></tr>
+      <tr><td>Protects humans from shock?</td><td>❌ No — too slow for 30 mA</td><td>✅ Yes — trips in &lt;30 ms</td></tr>
+    </table>
+
+    <div class="tip" style="margin-top:10px"><strong>Key point to write in exam:</strong> MCB protects equipment and wiring. ELCB protects human lives. Both must be installed together for complete electrical safety as required by IS 3043 and Indian Electricity Rules.</div>
+
+  </div>
+</div>
+</div>
+
+<!-- ===== EARTHING ===== -->
+<div id="earth" class="panel">
+<div class="sec-intro">
+  <span class="icon">🌍</span>
+  <div><strong>Earthing — TIER 1 · All 4 PYQs · Sec B (5M) + Sec C (10M)</strong><br>The question "Outline necessity of earthing + types" appeared in 3 papers. Draw both plate and pipe earthing diagrams. Best method for residential = Pipe Earthing.</div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Earthing — Objectives, Types &amp; Diagrams</span><span class="badge badge-t1">🔴 4/4 PYQs · GUARANTEED</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec B Q2 (OR)</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Outline the necessity of Earthing in electrical installation. Also state different types of earthing.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p>Earthing means connecting the metallic parts of electrical equipment — such as a motor body, switchgear casing, or transformer tank — to the earth through a low-resistance path. The earth is always at zero potential, so it acts as a safe discharge point for any unwanted fault current.</p>
+        <p><strong>Necessity of Earthing:</strong> The most important reason for earthing is human safety. If a live wire accidentally touches the body of a machine, and a person also touches that machine, a dangerous current will flow through the person. With proper earthing, the fault current flows to earth through the earthing conductor instead of through the person. Earthing also helps clear faults quickly, because a large earth fault current trips the MCB or fuse. It stabilises voltages by keeping equipment bodies at zero potential, provides a safe path for lightning to discharge, and is legally mandatory under IS 3043 and the Indian Electricity Rules.</p>
+        <p><strong>Types of Earthing:</strong> The two main methods are Plate Earthing and Pipe Earthing. Strip or Wire Earthing is also used in some cases.</p>
+        <p><strong>Plate Earthing:</strong> A copper or galvanised iron plate is buried vertically in the earth at a minimum depth of 3 metres. The copper plate is 600 mm × 600 mm × 3.18 mm and the GI plate is 600 mm × 600 mm × 6.35 mm. The plate is surrounded by alternating layers of charcoal and salt, which reduce soil resistivity and keep resistance low. An earth wire connects the plate to the equipment body. A watering pipe and inspection chamber are built at the surface so the earth electrode can be checked and kept moist.</p>
+        <p><strong>Pipe Earthing:</strong> A GI pipe of 38 mm diameter and 2.5 metres length is buried vertically in the earth. Small holes are drilled along the pipe's length, which allow moisture from the surrounding soil to enter the pipe and maintain a low resistance even during dry seasons. Charcoal and salt are packed around the pipe. An earth wire is connected at the top of the pipe, and an inspection chamber is provided at ground level.</p>
+        <p><strong>Earth resistance:</strong> The ideal resistance is less than 1 Ω. The maximum allowed value as per IS 3043 is 5 Ω.</p>
+      </div>
+    </div>
+
+    <div class="must-diag diag-box">
+      <div class="dlabel">⚠️ MUST DRAW — Plate Earthing Diagram</div>
+      <div class="ddesc">Equipment at top → Earth wire going down through conduit → At 3m depth: vertical copper/GI plate (600×600mm) → Alternating layers of charcoal (shade dark) and salt (shade light) around the plate → Watering pipe alongside → Concrete inspection chamber at ground level with cover. Label: plate dimensions, depth 3m, charcoal, salt, earth wire, inspection chamber.</div>
+      <a class="diag-btn" href="https://www.google.com/search?q=plate+earthing+diagram+labeled+copper+charcoal+salt+depth&tbm=isch" target="_blank">🔍 Search: plate earthing diagram labeled</a>
+    </div>
+
+    <div class="must-diag diag-box" style="margin-top:10px">
+      <div class="dlabel">⚠️ MUST DRAW — Pipe Earthing Diagram</div>
+      <div class="ddesc">Equipment at top → Earth wire going down → GI pipe (38mm dia, 2.5m long) buried vertically — IMPORTANT: draw small holes along the pipe length → Charcoal and salt fill around pipe → Watering pipe alongside → Masonry inspection chamber at ground level. Label: pipe dimensions, holes, charcoal, salt, earth wire, inspection chamber.</div>
+      <a class="diag-btn" href="https://www.google.com/search?q=pipe+earthing+diagram+labeled+GI+pipe+holes+inspection+chamber&tbm=isch" target="_blank">🔍 Search: pipe earthing diagram labeled</a>
+    </div>
+
+    <div class="qa-block" style="margin-top:12px">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec C Q5(c)</span><span class="rep-badge">⭐ 10 MARKS</span></div>
+        <div class="qa-q-text">Discuss the objectives of earthing. Differentiate among earthing methods and recommend the best method for residential use with justification.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (10 Marks)</div>
+        <p>Write the full 5-mark answer above. Then add the following comparison and recommendation:</p>
+        <table>
+          <tr><th>Feature</th><th>Plate Earthing</th><th>Pipe Earthing</th></tr>
+          <tr><td>Electrode type</td><td>Copper or GI plate</td><td>GI pipe with holes</td></tr>
+          <tr><td>Depth</td><td>Minimum 3 metres</td><td>2.5 metres</td></tr>
+          <tr><td>Moisture retention</td><td>Depends on watering</td><td>Holes allow natural moisture entry</td></tr>
+          <tr><td>Cost</td><td>Higher</td><td>Lower</td></tr>
+          <tr><td>Best used for</td><td>Large substations</td><td>Residential buildings</td></tr>
+        </table>
+        <p><strong>Recommendation — Pipe Earthing for residential use:</strong> Pipe earthing is the best method for residential installations because it is cheaper and easier to install than plate earthing. The holes drilled along the pipe allow moisture to enter from the surrounding soil throughout the year, so the earth resistance stays low even during dry summer months without frequent watering. It is widely used across India in homes and is fully compliant with IS 3043. For plate earthing, the resistance can rise in dry conditions if not maintained properly, making pipe earthing more reliable for everyday residential use.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ===== LVDT ===== -->
+<div id="lvdt" class="panel">
+<div class="sec-intro">
+  <span class="icon">📡</span>
+  <div><strong>LVDT — TIER 1 · All 4 PYQs · 1-mark + 5-mark + 10-mark all possible</strong><br>Appeared in Sec A, Sec B and Sec C across all papers. Master the 3 core positions. Draw both the construction diagram and the output characteristic graph.</div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">LVDT — Linear Variable Differential Transformer</span><span class="badge badge-t1">🔴 4/4 PYQs · GUARANTEED</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec B Q3 (OR)</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Demonstrate the construction and working of LVDT with the help of a suitable neat sketch.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p>LVDT stands for Linear Variable Differential Transformer. It is an electrical device used to measure linear displacement, which means straight line movement.</p>
+        <p><strong>Construction:</strong> [Draw labeled diagram — see diagram box below.] It has one primary coil P placed in the center, with two secondary coils S1 and S2 on either side. The primary coil is connected to AC supply. S1 and S2 are connected in series opposition, so Vo = VS1 − VS2. A soft iron movable core is placed inside the coils. This core is attached to the object whose movement is to be measured.</p>
+        <p><strong>Working — Core at Center Position:</strong> When the core is exactly at the center, equal voltage is induced in S1 and S2. Since both coils are in series opposition, Vo = VS1 − VS2 = 0 volts. This is called the null position.</p>
+        <p><strong>Working — Core Moves Toward S1:</strong> When the core moves toward S1, more voltage is induced in S1 and less in S2. So VS1 &gt; VS2, and the output voltage Vo becomes positive. More the core moves, higher the output.</p>
+        <p><strong>Working — Core Moves Toward S2:</strong> When the core moves toward S2, more voltage is induced in S2 and less in S1. So VS2 &gt; VS1, and Vo becomes negative. The output increases in the opposite direction.</p>
+        <p>Since the output voltage depends on the position of the core, the amount of displacement can be measured accurately.</p>
+        <p><strong>Output characteristic:</strong> [Draw the graph — see box below.] The graph is a straight line passing through the origin. The middle straight portion is the useful range. At both ends it curves into saturation.</p>
+      </div>
+    </div>
+
+    <div class="must-diag diag-box">
+      <div class="dlabel">⚠️ MUST DRAW — LVDT Construction Diagram</div>
+      <div class="ddesc">Draw a horizontal rectangular box (the former). In the centre section label "Primary coil P — AC excitation input". On the left half label "Secondary coil S1". On the right half label "Secondary coil S2". Inside the box draw a shaded rectangle with a left-right arrow = the movable iron core. Below the box show S1 and S2 connected in series-opposing with output terminals "Vo = VS1 − VS2". Add an arrow on the core: "connected to object being measured". Label everything.</div>
+      <a class="diag-btn" href="https://www.google.com/search?q=LVDT+construction+diagram+primary+secondary+coils+iron+core+labeled&tbm=isch" target="_blank">🔍 Search: LVDT construction diagram labeled</a>
+    </div>
+
+    <div class="must-diag diag-box" style="margin-top:10px">
+      <div class="dlabel">⚠️ MUST DRAW — LVDT Output Characteristic Graph</div>
+      <div class="ddesc">Draw X-Y axes. X-axis: "Core Displacement" (negative on left, zero at centre, positive on right). Y-axis: "Output Voltage Vo" (negative below, zero at centre, positive above). Draw a straight line through the origin slanting from bottom-left to top-right — label this "Linear Range". At both ends, show the line curving slightly — label "Saturation". Mark the null point clearly at the origin.</div>
+      <a class="diag-btn" href="https://www.google.com/search?q=LVDT+output+characteristic+curve+linear+range+displacement+voltage&tbm=isch" target="_blank">🔍 Search: LVDT output characteristic graph</a>
+    </div>
+
+    <div class="qa-block" style="margin-top:12px">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec B Q3 (OR)</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Outline the working of LVDT and explain the significance of null position using a neat sketch.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Null Position Explained</div>
+        <p>Write the full construction and working answer above. Then add this paragraph specifically about null position:</p>
+        <p>The null position is where the iron core is exactly at the center and the output voltage is zero. All measurements are taken from this reference point. When the core moves right, the output is positive. When it moves left, the output is negative. Because of this, one LVDT can measure displacement in both directions without any resetting or repositioning.</p>
+      </div>
+    </div>
+
+    <div class="qa-block" style="margin-top:12px">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC (partial) · Sec C Q8</span><span class="rep-badge">⭐ 10 MARKS</span></div>
+        <div class="qa-q-text">Explain the concept of LVDT and its working principle with the help of a clear and appropriate sketch.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Extra Content for 10 Marks</div>
+        <p>Write the full 5-mark answer above, then add the following:</p>
+        <p><strong>Advantages of LVDT:</strong> Resolution is infinite — even the smallest movement produces an output. There is no friction because the core never touches the coil, so the device lasts very long. The output is directly proportional to displacement, so calibration is simple. There is no hysteresis — it gives the same reading for the same position from any direction. It can work in rough conditions like vibration, shock, and high temperatures.</p>
+        <p><strong>Applications:</strong> It is used in CNC machines to track the position of the cutting tool. It measures pressure by detecting how much a diaphragm bends under pressure. It measures force by tracking how much a spring compresses. It is used in liquid level gauges where a float rises with the liquid. In aircraft, it measures the position of control surfaces like flaps.</p>
+        <p><strong>Disadvantage:</strong> LVDT can only measure straight line (linear) displacement. For rotary displacement, RVDT is used instead. Also, the output is AC voltage, so a demodulator circuit is needed if DC output is required.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ===== TRANSDUCERS ===== -->
+<div id="trans" class="panel">
+<div class="sec-intro">
+  <span class="icon">🔀</span>
+  <div><strong>Transducers — TIER 2 · 3/4 PYQs · Sec B (5M) + Sec C (10M)</strong><br>Primary vs Secondary transducer and the 5-type classification are the most asked subtopics. Always draw the block diagram.</div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Transducers — Definition, Types, Classification</span><span class="badge badge-t2">🔵 3/4 PYQs</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec B Q3</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Explain the working principle of primary and secondary transducer and provide one relevant example for each.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p>A transducer is a device that converts one form of energy into another. In electrical measurements, it converts a physical quantity like displacement, pressure, temperature, or force into an electrical signal like voltage or current.</p>
+        <p><strong>Primary Transducer:</strong> A primary transducer is the first stage of sensing. It directly senses the physical quantity being measured and converts it into a mechanical output such as displacement or force. It does not produce an electrical output on its own. A Bourdon tube is a good example — when pressure is applied, the curved tube straightens slightly, and its tip moves by a small amount. This mechanical displacement of the tip is the primary transducer's output.</p>
+        <p><strong>Secondary Transducer:</strong> A secondary transducer takes the mechanical output of the primary transducer and converts it into an electrical signal. An LVDT is a good example — it takes the mechanical displacement from the tip of the Bourdon tube and converts it into a proportional AC voltage that can be measured on a meter or recorder.</p>
+        <p>Together, the Bourdon tube (primary) and LVDT (secondary) form a complete pressure measurement system. The primary transducer senses the quantity, and the secondary transducer makes it measurable electrically.</p>
+      </div>
+    </div>
+
+    <div class="qa-block" style="margin-top:12px">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC (partial) · Sec C Q8 (OR)</span><span class="rep-badge">⭐ 10 MARKS</span></div>
+        <div class="qa-q-text">Provide a detailed explanation of the term transducer, supported by a block diagram. Classify transducers into five distinct categories and provide a relevant example for each.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (10 Marks)</div>
+        <p>Write the 5-mark answer above first. Then add the block diagram and 5-type classification below.</p>
+        <p><strong>Block Diagram:</strong> [Draw: Physical Input → Sensing Element → Transduction Element → Electrical Output → Signal Conditioning → Display or Control System. Add an example below: Pressure → Bourdon tube → LVDT → Voltage → Amplifier → Digital display.]</p>
+        <p><strong>Type 1 — Resistive Transducers:</strong> These change their electrical resistance when a physical quantity is applied. A strain gauge is a common example. When force is applied, the wire inside stretches and its resistance increases. This resistance change is measured and converted into a force or stress value. A thermistor is another example where resistance changes with temperature. These are passive transducers and need an external power supply.</p>
+        <p><strong>Type 2 — Inductive Transducers:</strong> These change their inductance when the physical input changes. An LVDT is the best example. As the iron core moves, the mutual inductance between the primary and secondary coils changes, giving a proportional output voltage. These also need external excitation.</p>
+        <p><strong>Type 3 — Capacitive Transducers:</strong> These change their capacitance. When two conducting plates move closer or farther apart, the capacitance between them changes. This principle is used to measure displacement, liquid level, and humidity. These are also passive transducers.</p>
+        <p><strong>Type 4 — Piezoelectric Transducers:</strong> Certain crystals like quartz produce a voltage when mechanical stress is applied to them. This is called the piezoelectric effect. An accelerometer uses this to measure vibration and acceleration. Microphones and ultrasonic sensors also work on this principle. These are active transducers and generate their own output without external supply.</p>
+        <p><strong>Type 5 — Thermoelectric Transducers:</strong> When two different metals are joined at a point and that junction is heated, a voltage is produced. This is called the Seebeck effect. A thermocouple works on this principle and is used to measure temperature in furnaces, engines, and medical equipment. These are also active transducers.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ===== MULTIMETER ===== -->
+<div id="meter" class="panel">
+<div class="sec-intro">
+  <span class="icon">📊</span>
+  <div><strong>Multimeter — TIER 2 · 3/4 PYQs · Sec B (5M) + Sec C (10M)</strong><br>The comparison table appeared in 3 papers. The DMM block diagram appeared in 2 papers. Both are answered here in full.</div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Digital Multimeter + Analog vs Digital Comparison</span><span class="badge badge-t2">🔵 3/4 PYQs</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec B Q3</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Interpret the working principle of a digital multimeter with the help of a neat block diagram.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p>A Digital Multimeter (DMM) is an electronic measuring instrument that can measure DC voltage, AC voltage, DC current, resistance, and continuity, displaying the result as a numeric value on an LCD screen.</p>
+        <p><strong>Block Diagram:</strong> [Draw: Input terminals → Range Selector / Input Conditioning → A/D Converter → Digital Processor / Microcontroller → LCD Display. Also draw a simple front panel below showing the LCD at the top, a large rotary selector dial in the middle with positions for DCV, ACV, DCA, Ω, and Continuity, and four input sockets at the bottom: COM, VΩ, mA, and 10A.]</p>
+        <p><strong>Working:</strong> When the test probes are connected to the circuit, the unknown quantity enters through the input terminals. The range selector adjusts the signal to a level that the internal electronics can handle safely. The Analogue-to-Digital (A/D) Converter is the heart of the DMM — it samples the analogue input signal many times per second and converts each sample into a binary number. The microprocessor then processes this binary data and sends it to the LCD display, which shows the final reading with the correct units, such as "12.5 V DC" or "470 Ω".</p>
+        <p><strong>Measurements possible:</strong> DC Voltage, AC Voltage, DC Current, Resistance, Continuity (beeps if circuit is complete), Diode testing, and in advanced models, Capacitance and Frequency.</p>
+      </div>
+    </div>
+
+    <div class="qa-block" style="margin-top:12px">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Nov 2024 · Sec B Q4</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Differentiate between the Analog and Digital multimeters.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p>An analog multimeter uses a moving pointer on a printed scale to show measurements, while a digital multimeter shows the result as a number on an LCD or seven-segment display. Both devices measure voltage, current, and resistance, but they work very differently and are suited to different situations.</p>
+        <table>
+          <tr><th>Feature</th><th>Analog Multimeter (AMM)</th><th>Digital Multimeter (DMM)</th></tr>
+          <tr><td>Display</td><td>Moving pointer on a scale</td><td>LCD showing a numeric value</td></tr>
+          <tr><td>Accuracy</td><td>Lower — depends on reading angle (parallax error)</td><td>Higher — digital reading, no human error</td></tr>
+          <tr><td>Auto-ranging</td><td>No — range must be set manually</td><td>Yes — most DMMs auto-select the range</td></tr>
+          <tr><td>Overload protection</td><td>Poor — meter can burn on wrong range</td><td>Good — shows "OL" for overload</td></tr>
+          <tr><td>Observing trends</td><td>Better — pointer shows rise or fall in real time</td><td>Harder — numbers change too fast to follow</td></tr>
+          <tr><td>External power</td><td>Not needed for voltage/current measurement</td><td>Battery required for electronics and display</td></tr>
+          <tr><td>Shock resistance</td><td>Low — pointer bends easily</td><td>High — no moving parts</td></tr>
+          <tr><td>Best used for</td><td>Watching changing quantities like motor starting or charging curves</td><td>Precise fault-finding and general measurement</td></tr>
+        </table>
+        <p>In summary, a digital multimeter is preferred for most modern applications because it is more accurate, easier to read, and has better safety features. An analog multimeter is still useful when you need to observe how a value is changing over time.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ===== 3-PHASE IM ===== -->
+<div id="im" class="panel">
+<div class="sec-intro">
+  <span class="icon">⚙️</span>
+  <div><strong>3-Phase Induction Motor — TIER 2 · 3/4 PYQs · Sec B (5M)</strong><br>Torque-slip curve appeared in 2 papers. Working principle + construction appeared in 3 papers. The slip numerical appears in Sec A.</div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">3-Phase Induction Motor — Working, Construction, Torque-Slip</span><span class="badge badge-t2">🔵 3/4 PYQs</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec B Q4</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Illustrate three phase induction motor with the help of its working principle and construction.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p>A three-phase induction motor is the most widely used electric motor in industry. It runs on three-phase AC supply and does not need any brushes or slip rings in its basic form, making it simple, rugged, and low-maintenance.</p>
+        <p><strong>Working Principle:</strong> When three-phase AC supply is given to the stator winding, it creates a Rotating Magnetic Field (RMF) that rotates at synchronous speed Ns = 120f/P rpm. As this rotating field passes over the stationary rotor conductors, it cuts through them and induces an EMF in the rotor by Faraday's law. Since the rotor conductors are short-circuited, this EMF drives a current through them. These current-carrying rotor conductors are now inside a magnetic field, so by the BIL law, a force acts on them, causing the rotor to rotate. The rotor always rotates slightly slower than the RMF because if both were at the same speed, there would be no relative motion, no induced EMF, no current, and no force. So a small speed difference, called slip, must always exist.</p>
+        <p><strong>Slip:</strong> Slip is defined as s = (Ns − Nr) / Ns × 100%. At full load, normal slip is between 2% and 8%.</p>
+        <p><strong>Construction — Stator:</strong> The stator is the outer stationary part. It consists of a laminated silicon steel core with slots cut into it. Three-phase windings are placed in these slots, physically separated by 120° in space. When three-phase supply is applied, these windings create the Rotating Magnetic Field.</p>
+        <p><strong>Construction — Rotor:</strong> The most common rotor type is the squirrel cage rotor. It has aluminium or copper bars placed in slots on the rotor core, with both ends of the bars connected by end rings, forming a cage-like structure. There are no external connections. This makes it very simple, robust, and cheap. A wound rotor type also exists, which uses external resistors connected through slip rings for speed control and high starting torque applications.</p>
+      </div>
+    </div>
+
+    <div class="qa-block" style="margin-top:12px">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec B Q4</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Contrast the torque slip characteristics of a three-phase Induction motor.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Torque-Slip Curve</div>
+        <p>[Draw the torque-slip curve — see diagram box below.]</p>
+        <p>The torque-slip characteristic shows how the torque produced by a three-phase induction motor changes as the slip changes from 0 to 1.</p>
+        <p><strong>At s = 0 (synchronous speed, no load):</strong> There is no relative motion between the rotor and the rotating field, so no EMF is induced, no current flows, and no torque is produced. The torque is zero.</p>
+        <p><strong>Stable region (s = 0 to sm):</strong> As the load on the motor increases, the motor slows down slightly, increasing the slip. This increases the induced EMF and rotor current, which increases torque. In this region, torque increases nearly linearly with slip. This is where the motor normally operates — at small values of slip near zero. When the load increases, the motor automatically produces more torque to compensate.</p>
+        <p><strong>Maximum torque (pull-out torque) at s = sm:</strong> As slip increases further, the rotor reactance becomes significant and limits the current. The torque reaches a maximum value called the pull-out torque or breakdown torque at a slip value of sm (typically 0.1 to 0.3). This is the highest torque the motor can produce. If the load exceeds this value, the motor will stall.</p>
+        <p><strong>Unstable region (s = sm to 1):</strong> Beyond the maximum torque point, as slip increases further, the torque actually decreases. This region is unstable — if the motor enters it, it cannot recover and will come to a stop. The motor must not be operated here.</p>
+        <p><strong>At s = 1 (standstill, starting):</strong> At startup, the rotor is stationary. The torque produced at s = 1 is called the starting torque. For the motor to start successfully, this starting torque must be greater than the load torque.</p>
+      </div>
+    </div>
+
+    <div class="must-diag diag-box">
+      <div class="dlabel">⚠️ MUST DRAW — Torque-Slip Characteristic Curve</div>
+      <div class="ddesc">X-axis: Slip (0 on the right to 1.0 on the left). Y-axis: Torque (0 at bottom). Draw the curve: starts at 0 (s=0), rises steeply to a PEAK (label: "Maximum/Pull-out Torque" at s=sm ≈ 0.1–0.3), then falls to a moderate value at s=1 (label: "Starting Torque"). Mark "Stable region" on the right side (s=0 to sm) and "Unstable region" on the left side (s=sm to 1). Indicate the normal operating point with an arrow near small slip on the right.</div>
+      <a class="diag-btn" href="https://www.google.com/search?q=3+phase+induction+motor+torque+slip+characteristic+curve+labeled&tbm=isch" target="_blank">🔍 Search: torque-slip characteristic 3-phase IM</a>
+    </div>
+
+    <div class="formula-box" style="margin-top:10px">
+      <div class="flabel">Key Formulas — Memorise</div>
+      <div class="f">Synchronous speed:  Ns = 120f / P  (rpm)</div>
+      <div class="f">Slip:               s = (Ns − Nr) / Ns × 100%</div>
+      <div class="f">Normal full-load slip: 2% to 8%</div>
+      <div class="f">Rotor speed:        Nr = Ns × (1 − s)</div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ===== NUMERICALS ===== -->
+<div id="num" class="panel">
+<div class="sec-intro">
+  <span class="icon">🔢</span>
+  <div><strong>Numericals — TIER 2 · 3/4 PYQs have a transformer efficiency calculation in Sec B.</strong><br>Every PYQ numerical is solved step-by-step. Learn the method first, then practise writing each one by hand.</div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Transformer Efficiency — Method First</span><span class="badge badge-t2">🔵 3/4 PYQs</span></div>
+  <div class="topic-body">
+    <div class="formula-box">
+      <div class="flabel">Transformer Efficiency Formulas — Memorise These</div>
+      <div class="f">Full load output power:   Pout = kVA × power factor (pf)</div>
+      <div class="f">Efficiency:               η = Pout / (Pout + Pi + PCu) × 100%</div>
+      <div class="f">Copper loss at fraction x: PCu = x² × PCu_FL</div>
+      <div class="f">At half load:             PCu_half = (0.5)² × PCu_FL = 0.25 × PCu_FL</div>
+      <div class="f">Max efficiency condition: Pi = PCu</div>
+      <div class="f">Load for max η:           x = √(Pi / PCu_FL)</div>
+      <div class="f">Iron loss Pi:             CONSTANT at all loads</div>
+      <div class="f">Copper loss PCu:          VARIABLE — changes with load²</div>
+    </div>
+    <div class="tip"><strong>Step method:</strong> (1) Find Pout = kVA × pf. (2) Find PCu at that load fraction. (3) Total losses = Pi + PCu. (4) η = Pout / (Pout + losses) × 100%.</div>
+  </div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Numerical 1 — 10 kVA Transformer</span><span class="badge badge-t2">🔵 CEC Apr 2025 · Sec B Q4</span></div>
+  <div class="topic-body">
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec B Q4 (OR)</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">A 220/400 V, 10 kVA, 50 Hz, single-phase transformer has a copper loss of 120 W at full load. If it has an efficiency of 98% at full load and unity power factor, find the iron losses. Also find the efficiency at half full load at 0.8 p.f. lagging.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Step-by-Step Solution</div>
+        <p><strong>Given:</strong> kVA = 10, PCu_FL = 120 W, η_FL = 98% = 0.98, pf_FL = 1 (unity), pf_half = 0.8</p>
+        <p><strong>Part (a) — Find Iron Loss (Pi):</strong> Full load output power = kVA × pf = 10,000 × 1 = 10,000 W. Using the efficiency formula: <span class="f">0.98 = 10,000 / (10,000 + 120 + Pi)</span>. Rearranging: <span class="f">10,000 + 120 + Pi = 10,000 / 0.98 = 10,204 W</span>. Therefore <span class="f">Pi = 10,204 − 10,000 − 120 = 84 W</span>. Iron loss = <strong>84 W</strong>.</p>
+        <p><strong>Part (b) — Efficiency at half load, 0.8 pf:</strong> Copper loss at half load = (0.5)² × 120 = 0.25 × 120 = 30 W. Output power at half load = 0.5 × 10,000 × 0.8 = 4,000 W. Total losses = Pi + PCu_half = 84 + 30 = 114 W. <span class="f">η = 4,000 / (4,000 + 114) × 100 = 4,000 / 4,114 × 100 = <strong>97.23%</strong></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Numerical 2 — 100 kVA Transformer</span><span class="badge badge-t2">🔵 CEC Nov 2024 · Sec B Q2</span></div>
+  <div class="topic-body">
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Nov 2024 · Sec B Q2 (OR)</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">The iron loss and full load copper loss of a 100 kVA, 6600/400 V single-phase transformer are 600 W and 900 W respectively. Find: (a) efficiency at full load 0.8 pf lag, (b) efficiency at half load 0.8 pf lag, (c) the load at which maximum efficiency occurs and the value of maximum efficiency.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Step-by-Step Solution</div>
+        <p><strong>Given:</strong> kVA = 100, Pi = 600 W, PCu_FL = 900 W, pf = 0.8</p>
+        <p><strong>Part (a) — Full load efficiency:</strong> Pout = 100,000 × 0.8 = 80,000 W. Total losses = 600 + 900 = 1,500 W. <span class="f">η_FL = 80,000 / 81,500 × 100 = <strong>98.16%</strong></span></p>
+        <p><strong>Part (b) — Half load efficiency:</strong> PCu_half = (0.5)² × 900 = 225 W. Pout_half = 0.5 × 100,000 × 0.8 = 40,000 W. Total losses = 600 + 225 = 825 W. <span class="f">η_half = 40,000 / 40,825 × 100 = <strong>97.98%</strong></span></p>
+        <p><strong>Part (c) — Load for maximum efficiency:</strong> Maximum efficiency occurs when Pi = PCu. Load fraction <span class="f">x = √(Pi / PCu_FL) = √(600 / 900) = √0.667 = 0.816</span>. So the load at maximum efficiency = 0.816 × 100 = <strong>81.6 kVA</strong>. At this load and 0.8 pf: Pout = 0.816 × 100,000 × 0.8 = 65,280 W. PCu at max η = Pi = 600 W. <span class="f">η_max = 65,280 / (65,280 + 600 + 600) × 100 = 65,280 / 66,480 × 100 = <strong>98.19%</strong></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Numerical 3 — 25 kVA Transformer</span><span class="badge badge-t2">🔵 CEC (partial) · Sec B Q5</span></div>
+  <div class="topic-body">
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC (partial) · Sec B Q5</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">In a 25 kVA, 2000/200 V power transformer the iron and full load copper losses are 350 W and 400 W respectively. Find the efficiency at unity power factor at full load.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Step-by-Step Solution</div>
+        <p><strong>Given:</strong> kVA = 25, Pi = 350 W, PCu_FL = 400 W, pf = 1</p>
+        <p>Full load output power = 25,000 × 1 = 25,000 W. Total losses = 350 + 400 = 750 W. <span class="f">η = 25,000 / (25,000 + 750) × 100 = 25,000 / 25,750 × 100 = <strong>97.09%</strong></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== AUTO-TRANSFORMER ===== -->
+<div id="auto" class="panel">
+<div class="sec-intro">
+  <span class="icon">🔄</span>
+  <div><strong>Auto-Transformer — TIER 2 · 2/4 PYQs · Sec B (5M)</strong><br>Copper saving formula and construction are the key points. The kVA output problem (CGC 2025) is a unique question — understand the concept before memorising the steps.</div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Auto-Transformer — Construction, Working, Copper Saving</span><span class="badge badge-t2">🔵 2/4 PYQs</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC (partial) · Sec B Q6</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Discuss the construction of an auto-transformer and infer the expression for the copper savings in it.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p>In a normal two-winding transformer, the primary and secondary are two completely separate and electrically isolated windings. All power is transferred magnetically across the core. An auto-transformer, by contrast, uses only a single winding with a tapping point somewhere along it. The part of the winding above the tap serves as the primary, and the part from the tap to one end serves as the secondary. The primary and secondary are therefore electrically connected and share the same winding.</p>
+        <p><strong>Construction:</strong> [Draw diagram — see box below.] The single winding is wound on a laminated iron core. The full winding of N1 turns is connected to the input supply V1. A tap is taken at N2 turns from one end, and the output V2 is taken between this tap and the same end. The ratio V1/V2 = N1/N2 = 1/k, where k = V2/V1 is called the turns ratio.</p>
+        <p><strong>Copper Saving:</strong> In a two-winding transformer, both the primary and secondary windings carry their full respective currents through their full length, requiring a certain amount of copper. In an auto-transformer, the section of winding between the tap and the end is shared by both primary and secondary circuits. This shared section only carries the difference current (I2 − I1) rather than the full current, so it needs much less copper. The copper saved, expressed as a fraction of the copper in a two-winding transformer, is equal to k = V2/V1. The closer V2 is to V1 (i.e., k close to 1), the more copper is saved. This is why auto-transformers are most useful for small voltage differences such as 400V to 440V.</p>
+        <div class="formula-box">
+          <div class="flabel">Key Formulas</div>
+          <div class="f">Turns ratio:       k = V2 / V1  (k &lt; 1 for step-down)</div>
+          <div class="f">Copper saving fraction = k</div>
+          <div class="f">kVA of auto-TF   = kVA of two-winding TF / (1 − k)</div>
+        </div>
+        <p><strong>Advantages:</strong> Less copper, lower cost, lighter weight, higher efficiency, and better voltage regulation compared to a two-winding transformer. <strong>Disadvantage:</strong> There is no electrical isolation between input and output, which is a safety concern. It cannot be used where isolation is required.</p>
+      </div>
+    </div>
+
+    <div class="must-diag diag-box">
+      <div class="dlabel">Draw — Auto-Transformer (Step-down)</div>
+      <div class="ddesc">Draw a vertical coil (many turns) with input supply V1 connected across the full winding (N1 turns). Show a tap point partway down — from this tap to the bottom end is N2 turns. Output V2 is taken between the tap and the bottom end. Label: N1 turns total, N2 turns (secondary portion), V1 input, V2 output (V2 &lt; V1).</div>
+      <a class="diag-btn" href="https://www.google.com/search?q=auto+transformer+construction+diagram+single+winding+tap+labeled&tbm=isch" target="_blank">🔍 Search: auto-transformer construction diagram</a>
+    </div>
+
+    <div class="qa-block" style="margin-top:12px">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec B Q4 (OR)</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Extract the method of connecting a 400/100 V, 5 kVA two-winding transformer as an autotransformer to obtain 400 V output from a 500 V supply. Determine the kVA output of the autotransformer.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p><strong>Connection method:</strong> The 400V primary winding and the 100V secondary winding are connected in series in an additive (boost) manner. The 400V winding receives 400V from part of the supply, and the 100V winding receives the remaining 100V, so together they handle 500V input. The 400V winding terminals are used as the output, giving 400V output.</p>
+        <p><strong>Turns ratio of the auto-transformer:</strong> k = V2 / V1 = 400 / 500 = 0.8</p>
+        <p><strong>kVA output:</strong> <span class="f">kVA_auto = kVA_two-winding / (1 − k) = 5 / (1 − 0.8) = 5 / 0.2 = <strong>25 kVA</strong></span></p>
+        <p>The same transformer that was rated 5 kVA as a two-winding transformer can now deliver 25 kVA when reconnected as an auto-transformer. This five-fold increase in capacity is the key advantage — because part of the power is transferred by direct electrical conduction through the shared winding rather than purely by magnetic induction.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ===== WIRES + CABLES ===== -->
+<div id="wires" class="panel">
+<div class="sec-intro">
+  <span class="icon">🔌</span>
+  <div><strong>Wires &amp; Cables — TIER 1–2 · 3–4/4 PYQs · Sec A + Sec B + Sec C</strong><br>Appeared in Sec A (1-mark), Sec B (5-mark as OR), and Sec C (10-mark combined with earthing). Treat as Tier 1.5 — very likely to come.</div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Wires &amp; Cables — Types, Properties, Applications</span><span class="badge badge-t1">🔴 3–4/4 PYQs</span></div>
+  <div class="topic-body">
+
+    <div class="qa-block">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CGC 2025 · Sec B Q2 (OR)</span><span class="rep-badge">⭐ 5 MARKS</span></div>
+        <div class="qa-q-text">Classify the different types of electrical wires based on their properties and their suitability for various applications.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Exam Answer — Write This (5 Marks)</div>
+        <p>A wire is a single conductor that may be bare or insulated. A cable is a group of two or more conductors bundled together with insulation. Cables are used for power distribution, while wires are used for internal connections within panels and boards.</p>
+        <p><strong>PVC Insulated Cable:</strong> This is the most widely used cable in homes and commercial buildings. Its insulation is made of PVC (Polyvinyl Chloride), which is cheap, flexible, and easy to install. It can operate at temperatures up to 70°C and is available in 2-core (Live + Neutral), 3-core (Live + Neutral + Earth), and 4-core versions. It is used for general domestic wiring, switches, sockets, and lighting circuits.</p>
+        <p><strong>XLPE Cable (Cross-Linked Polyethylene):</strong> This cable uses XLPE insulation, which can withstand higher temperatures up to 90°C. Because of the higher temperature rating, the same size of XLPE cable can carry more current than a PVC cable. It also has better chemical resistance and is more fire-resistant. It is used in industrial installations, high-voltage underground distribution, and places where higher reliability is needed.</p>
+        <p><strong>SWA Cable (Steel Wire Armoured):</strong> This cable has a standard PVC or XLPE insulated core, surrounded by a layer of steel wire armour. The armour protects the cable from mechanical damage such as digging, crushing, or rodent attack. It is used for underground installations, outdoor wiring in industrial sites, and wherever cables are exposed to physical hazards.</p>
+        <p><strong>Coaxial Cable:</strong> A coaxial cable has an inner conductor, surrounded by insulation, then an outer cylindrical conductor (shield), and finally an outer jacket. The outer shield blocks electromagnetic interference from entering the signal. It is used for TV signals, older broadband internet connections, and radio frequency (RF) communications.</p>
+        <p><strong>ACSR Conductor (Aluminium Conductor Steel Reinforced):</strong> This is the overhead conductor used on high-voltage transmission towers. It has a central steel core for mechanical strength, with aluminium strands wound around it for electrical conductivity. Aluminium is lightweight and a good conductor, while steel provides the tensile strength needed to span long distances between towers.</p>
+      </div>
+    </div>
+
+    <div class="qa-block" style="margin-top:12px">
+      <div class="qa-q">
+        <div class="qa-q-title"><span class="pyq-src">CEC Apr 2025 · Sec C Q5(a)</span><span class="rep-badge">⭐ 10 MARKS</span></div>
+        <div class="qa-q-text">Explain wires and cables in detail.</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-title">✅ Extra Content for 10 Marks</div>
+        <p>Write the full 5-mark answer above, then add the following:</p>
+        <p><strong>Wire types in detail:</strong> A solid wire has a single, thick conductor and is used in fixed installations like electrical boards and conduit wiring. A stranded wire is made of many thin wires twisted together, which makes it flexible and suitable for use in portable equipment, flexible cords, and motors. An earth wire is typically green-yellow in colour and connects the metallic body of equipment to the earth electrode.</p>
+        <p><strong>How to select a cable:</strong> The selection of a cable depends on several factors. The voltage rating of the cable must be higher than the supply voltage (for example, 1.1 kV rated cable for 230V or 415V domestic and industrial supply). The current rating must be higher than the expected load current so the cable does not overheat. The temperature of the environment determines whether PVC or XLPE insulation is needed. If the cable will be exposed to mechanical damage or buried underground, armoured cable (SWA) must be used. The number of cores is chosen based on the system: 2-core for single-phase, 3-core or 4-core for three-phase systems.</p>
+        <p><strong>Summary table:</strong></p>
+        <table>
+          <tr><th>Cable Type</th><th>Max Temp</th><th>Use Case</th></tr>
+          <tr><td>PVC insulated</td><td>70°C</td><td>Domestic and commercial wiring</td></tr>
+          <tr><td>XLPE insulated</td><td>90°C</td><td>Industrial and HV underground</td></tr>
+          <tr><td>SWA (armoured)</td><td>70–90°C</td><td>Underground, outdoor, industrial</td></tr>
+          <tr><td>Coaxial</td><td>—</td><td>TV signals, RF communication</td></tr>
+          <tr><td>ACSR overhead</td><td>—</td><td>High-voltage transmission towers</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ===== LOW PRIORITY ===== -->
+<div id="low" class="panel">
+<div class="low-label">⚪ TIER 3 — Study only after mastering all Tier 1 and Tier 2 topics. These give at most 1 mark each in Sec A.</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">SFU + MCCB — 1-mark only</span><span class="badge badge-t3">⚪ 1–2/4 PYQs · Sec A only</span></div>
+  <div class="topic-body">
+    <p>An SFU (Switch Fuse Unit) is a combination of a manual isolating switch and a fuse in a single unit. Its main job is to provide visible isolation — when the switch is opened, it is clear to everyone that the equipment is safely disconnected from the supply, making maintenance safe. The built-in fuse provides overcurrent protection. However, unlike an MCB, it cannot reset itself — the fuse must be replaced after it blows. It is used as the incoming device before a distribution board and is rated up to 800A.</p>
+    <p>An MCCB (Moulded Case Circuit Breaker) is the industrial version of an MCB. While MCB is rated up to 100A for homes and offices, MCCB handles currents from 100A up to 1600A for industrial plants and main distribution boards. Its trip settings — both thermal (overload) and magnetic (short circuit) — are adjustable, which allows it to be tuned for different load types. Like an MCB, it is reusable and trips automatically.</p>
+  </div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Batteries — 1-mark only</span><span class="badge badge-t3">⚪ 1/4 PYQs</span></div>
+  <div class="topic-body">
+    <p>Batteries are classified as primary (non-rechargeable) or secondary (rechargeable). Primary batteries include dry cells (1.5V, used in remotes), alkaline batteries (1.5V, longer life), and lithium primary cells (3V, used in watches). Secondary batteries include lead-acid (12V, used in cars and UPS systems), Ni-Cd (1.2V per cell, used in power tools but suffers from memory effect), and Li-ion (3.6V per cell, used in phones and laptops with the best energy density). The capacity of a battery is measured in Ampere-hours (Ah). A 100 Ah battery can supply 100A for 1 hour, or 10A for 10 hours.</p>
+  </div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">Energy Calculation — 1-mark numerical</span><span class="badge badge-t3">⚪ 1/4 PYQs</span></div>
+  <div class="topic-body">
+    <div class="formula-box">
+      <div class="flabel">Energy &amp; Billing Formulas</div>
+      <div class="f">Energy (kWh) = Power (kW) × Time (hours)</div>
+      <div class="f">Units consumed = (Watts × Hours) / 1000</div>
+      <div class="f">Bill (₹) = Total units (kWh) × Rate (₹/unit)</div>
+      <div class="f">1 unit = 1 kWh = 3.6 MJ</div>
+    </div>
+    <p>Example: 5 bulbs of 60W each used for 6 hours per day for 30 days = 5 × 60 × 6 × 30 = 54,000 Wh = 54 kWh. A fan of 80W used for 10 hours per day for 30 days = 24 kWh. Total = 78 units. At ₹7 per unit, the bill = <strong>₹546</strong>.</p>
+  </div>
+</div>
+
+<div class="topic">
+  <div class="topic-header"><span class="topic-title">DC Motor, Synchronous Generator — Skip for MST2</span><span class="badge badge-t3">⚪ NOT in your MST2 PYQs</span></div>
+  <div class="topic-body">
+    <div class="tip"><strong>These topics did not appear in any of the 4 MST2 PYQs analysed.</strong> They appear in end-semester papers. Skip these completely if Tier 1 and Tier 2 are not fully revised.</div>
+    <p>DC Motor in one line: Works on F = BIL force. Back EMF Eb = V − IaRa. Speed N ∝ Eb/φ. Types are shunt (constant speed), series (high starting torque), and compound.</p>
+    <p>Synchronous Generator in one line: A DC-excited rotor rotates inside the stator, creating a rotating magnetic field that induces three-phase AC in the stator winding. Ns = 120f/P. Used in all power stations.</p>
+    <p>Single-Phase IM in one line: Not self-starting because the magnetic field only pulsates and does not rotate. Made self-starting by adding an auxiliary winding with a capacitor. Used in fans, pumps, and refrigerators.</p>
+  </div>
+</div>
+</div>
+
+<script>
+function show(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

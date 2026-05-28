@@ -3048,15 +3048,38 @@ body.focus-mode .topic,body.focus-mode .sec-intro,body.focus-mode .priority-bann
       <span class="badge badge-t2">🔵 Tier 2</span>
     </div>
     <div class="topic-body prose">
-      <p>Electrical installations employ different cables depending on load current, environment temperature, and mechanical hazard levels:</p>
+      <p>As per the professor's classification, wires and cables are classified by <strong>number of conductors</strong>, <strong>insulation material</strong>, <strong>voltage rating</strong>, <strong>construction</strong>, <strong>application</strong>, and <strong>conductor material</strong>.</p>
 
-      <div class="sub-section-title">1. PVC (Polyvinyl Chloride) Cable</div>
-      <p>This is the most common type used in low-voltage domestic wiring. The conductors are insulated with a layer of PVC plastic.</p>
-      <ul>
-        <li><strong>Applications:</strong> Domestic light points, switches, ceiling fans, and socket wiring.</li>
-        <li><strong>Advantages:</strong> Cheap, highly flexible, easy to strip and run, and chemically resistant to moisture.</li>
-        <li><strong>Limitation:</strong> PVC cannot handle very high temperatures. The insulation starts to soften and melt above <strong>70°C</strong>.</li>
-      </ul>
+      <div class="sub-section-title">1. Based on Number of Conductors</div>
+      <div class="cmp-container">
+        <table class="cmp">
+          <thead><tr><th>Type</th><th>Meaning / Use</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Single-core</strong></td><td>One conductor; used in simple circuits and fixed wiring.</td></tr>
+            <tr><td><strong>Twin-core</strong></td><td>Two conductors, usually phase and neutral.</td></tr>
+            <tr><td><strong>Three-core</strong></td><td>Used where phase, neutral and earth are required; also used in some 3-phase/earthing systems.</td></tr>
+            <tr><td><strong>Multi-core</strong></td><td>More than three conductors under one sheath; common in industrial/control wiring.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-section-title">2. Based on Insulation Material</div>
+      <div class="cmp-container">
+        <table class="cmp">
+          <thead><tr><th>Type</th><th>Important Point</th><th>Typical Use</th></tr></thead>
+          <tbody>
+            <tr><td><strong>VIR</strong> (Vulcanized Indian Rubber)</td><td>Tinned copper conductor covered with rubber; now rarely used because it absorbs moisture.</td><td>Old wiring installations.</td></tr>
+            <tr><td><strong>PVC</strong> (Polyvinyl Chloride)</td><td>Most common, low-cost, durable and moisture-resistant insulation.</td><td>Domestic/low-voltage wiring.</td></tr>
+            <tr><td><strong>TRS / CTS</strong> (Tough Rubber / Cab Tyre Sheathed)</td><td>Extra tough protective outer layer; better for damp or moisture-prone areas.</td><td>Workshops, temporary and moisture-prone wiring.</td></tr>
+            <tr><td><strong>Lead Sheathed</strong></td><td>Lead sheath protects against moisture and chemical damage.</td><td>Underground or chemically exposed locations.</td></tr>
+            <tr><td><strong>Weatherproof</strong></td><td>Designed to withstand outdoor exposure.</td><td>Outdoor service connections.</td></tr>
+            <tr><td><strong>XLPE</strong> (Cross-linked Polyethylene)</td><td>High-temperature and high-voltage insulation; better current capacity than PVC.</td><td>High-load, underground and distribution cables.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-section-title">PVC Coating — Most Common Exam Point</div>
+      <p><strong>PVC</strong> is the most common insulation used in domestic wiring because it is cheap, durable, moisture-resistant and provides good electrical insulation. Its main limitation is temperature: ordinary PVC insulation is suitable up to about <strong>70°C</strong>.</p>
 
       <!-- MST Solved Question Block -->
       <div class="qa-block" style="border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; margin: 16px 0; background: #181817;">
@@ -3077,57 +3100,51 @@ body.focus-mode .topic,body.focus-mode .sec-intro,body.focus-mode .priority-bann
           </ul>
         </div>
       </div>
-
-      <div class="sub-section-title">2. XLPE (Cross-Linked Polyethylene) Cable</div>
-      <p>In XLPE cables, the polyethylene insulation undergoes a chemical "cross-linking" treatment. This process changes the molecular structure, forming links between polymer chains that greatly increase heat resistance.</p>
-      <ul>
-        <li><strong>Applications:</strong> Industrial power distribution, underground feeders, and high-load circuits.</li>
-        <li><strong>Advantages:</strong> Can handle continuous operating temperatures up to <strong>90°C</strong> (and up to 250°C under short-circuit conditions). It has superior electrical properties, higher current-carrying capacity, and a longer lifespan than PVC.</li>
-      </ul>
-
-      <div class="sub-section-title">3. Armoured Cable (Steel Wire Armoured — SWA)</div>
-      <p>This cable contains one or more copper conductors wrapped in insulation, surrounded by a protective layer of steel wires or steel tape (the armour), which is then covered by an outer plastic sheath.</p>
-      <ul>
-        <li><strong>Applications:</strong> Underground power mains, industrial switchyards, outdoor lighting, and environments with high mechanical hazard risks.</li>
-        <li><strong>Advantages:</strong> Extremely high resistance to physical damage (crushing, falling tools, rodent bites, or excavation tools). The steel armour layer must always be connected to the earth wire for additional safety.</li>
-      </ul>
-
-      <div class="sub-section-title">4. Flexible Cable (Flex)</div>
-      <p>Unlike solid wires that use a single solid metal core, flexible cables use many extremely fine copper strands twisted together into a single conductor.</p>
-      <ul>
-        <li><strong>Applications:</strong> Appliance supply cords (irons, kettles, mixers), extension leads, and portable industrial tools.</li>
-        <li><strong>Advantages:</strong> Can bend and flex repeatedly without metal fatigue or breaking.</li>
-      </ul>
-
-      <div class="sub-section-title">Conductor Materials Comparison</div>
+      <div class="sub-section-title">3. Based on Voltage Rating</div>
       <div class="cmp-container">
         <table class="cmp">
-          <thead>
-            <tr>
-              <th>Material</th>
-              <th>Key Properties</th>
-              <th>Primary Applications</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Voltage Grade</th><th>Range / Use</th></tr></thead>
           <tbody>
-            <tr>
-              <td><strong>Copper (Cu)</strong></td>
-              <td>Very high electrical conductivity, highly flexible, low corrosion rate, but expensive.</td>
-              <td>Almost all domestic, commercial, and appliance internal wiring.</td>
-            </tr>
-            <tr>
-              <td><strong>Aluminium (Al)</strong></td>
-              <td>Lighter weight, much cheaper, but has only 60% of copper's conductivity and is more brittle.</td>
-              <td>Overhead power transmission lines, long-distance distribution feeders.</td>
-            </tr>
+            <tr><td><strong>Low Voltage (LV)</strong></td><td>Up to 1 kV; common domestic and small industrial wiring.</td></tr>
+            <tr><td><strong>Medium Voltage (MV)</strong></td><td>1 kV to 33 kV; distribution networks and industrial feeders.</td></tr>
+            <tr><td><strong>High Voltage (HV)</strong></td><td>33 kV to 220 kV; higher power distribution/transmission.</td></tr>
+            <tr><td><strong>Extra High Voltage (EHV)</strong></td><td>Above 220 kV; bulk power transmission.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-section-title">4. Based on Construction</div>
+      <ul>
+        <li><strong>Solid wire:</strong> single solid conductor; cheap and less flexible; used for fixed wiring.</li>
+        <li><strong>Stranded wire:</strong> multiple thin strands; more flexible than solid wire.</li>
+        <li><strong>Flexible cable:</strong> very fine strands; used for appliances and portable equipment.</li>
+        <li><strong>Armoured cable:</strong> steel wire/tape armour gives extra mechanical protection; used underground and in industrial installations.</li>
+        <li><strong>ACSR / AAC:</strong> aluminium conductors used mainly for overhead power lines.</li>
+      </ul>
+
+      <div class="sub-section-title">5. Based on Application</div>
+      <ul>
+        <li><strong>House wiring cables:</strong> domestic lighting, sockets and fixed wiring.</li>
+        <li><strong>Underground cables:</strong> buried installations; often armoured or lead-sheathed for protection.</li>
+        <li><strong>Overhead cables:</strong> transmission/distribution lines, commonly aluminium based.</li>
+        <li><strong>Control cables:</strong> used in control panels and instrumentation circuits.</li>
+      </ul>
+
+      <div class="sub-section-title">6. Based on Conductor Material</div>
+      <div class="cmp-container">
+        <table class="cmp">
+          <thead><tr><th>Material</th><th>Key Properties</th><th>Primary Applications</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Copper</strong></td><td>High conductivity, reliable and widely used; costlier than aluminium.</td><td>House wiring, appliances and control wiring.</td></tr>
+            <tr><td><strong>Aluminium</strong></td><td>Lightweight and cheaper; lower conductivity than copper.</td><td>Transmission lines and large installations.</td></tr>
+            <tr><td><strong>Tinned Copper</strong></td><td>Copper protected by tin coating; better corrosion resistance.</td><td>Moist/corrosive locations and special cables.</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="tip">
-        <strong>Exam Point (MST2 Recall):</strong> PVC coating on electrical conductors serves two main purposes: **electrical insulation** (prevents shocks and short-circuits) and **environmental protection** (shields the metal conductor from moisture, oxidation, and corrosion).
-      </div>
-<!-- MST Solved Question Block -->
+        <strong>Exam Point:</strong> Prefer the professor's classification headings: number of conductors, insulation material, voltage rating, construction, application and conductor material. For PVC, write: insulation + protection from moisture/corrosion + common domestic use.
+      </div><!-- MST Solved Question Block -->
       <div class="qa-block" style="border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; margin: 16px 0; background: #181817;">
         <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
           <span class="badge badge-exam">MST2</span>
@@ -3143,7 +3160,7 @@ body.focus-mode .topic,body.focus-mode .sec-intro,body.focus-mode .priority-bann
           <div style="text-align: center; margin: 16px 0;">
             <img class="diagram-img" src="images/cable_types.png" alt="Cross sections of different cable types" style="max-width: 100%; border: 1px solid var(--border-color); border-radius: 4px;">
           </div>
-          <p>Types: <strong>Solid wire</strong>, <strong>Stranded wire</strong>, <strong>Coaxial cable</strong>, <strong>Twisted pair cable</strong>, and <strong>Armoured cable (SWA)</strong>.</p>
+          <p>Types may be classified as: <strong>single-core, twin-core, three-core and multi-core cables</strong>; by insulation as <strong>VIR, PVC, TRS/CTS, lead-sheathed, weatherproof and XLPE</strong>; by construction as <strong>solid, stranded, flexible and armoured cables</strong>; and by conductor material as <strong>copper, aluminium and tinned copper</strong>.</p>
         </div>
       </div>
 <!-- MST Solved Question Block -->
@@ -3158,20 +3175,20 @@ body.focus-mode .topic,body.focus-mode .sec-intro,body.focus-mode .priority-bann
         </div>
         <div class="qa-a green-box" style="margin: 0; padding: 14px;">
           <div class="green-box-title" style="font-size: 11px; font-weight: 700; color: var(--accent-green); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">Expected Answer</div>
-          <p><strong>1. Solid (Single-Core) Wire:</strong></p>
-          <p>A solid wire consists of one thick conductor (copper or aluminium) with a PVC insulation coat. Rigid and maintains its shape. Used in fixed household wiring inside walls and conduits — where the wire will never need to flex. Easy to terminate and connect. The PVC insulation prevents contact between conductors and prevents short circuits.</p>
+          <p><strong>1. Definition:</strong></p>
+<p>A <strong>wire</strong> is usually a single bare or insulated conductor. A <strong>cable</strong> consists of one or more insulated conductors, separated from each other and covered by a protective sheath.</p>
 
-          <p style="margin-top: 10px;"><strong>2. Stranded Wire:</strong></p>
-          <p>Made of multiple thin conductors twisted together and covered with PVC insulation. The twisting gives <strong>flexibility</strong> — the wire can bend repeatedly without breaking. Used in appliance cords, flexible connections inside control panels, automotive wiring, and any application where the wire moves during service.</p>
+<p style="margin-top: 10px;"><strong>2. Classification by Number of Conductors:</strong></p>
+<p><strong>Single-core</strong> has one conductor. <strong>Twin-core</strong> has two conductors, generally phase and neutral. <strong>Three-core</strong> is used where phase, neutral and earth are required. <strong>Multi-core</strong> cables have more than three conductors and are common in industrial/control circuits.</p>
 
-          <p style="margin-top: 10px;"><strong>3. Twin-Core and Multi-Core Cables:</strong></p>
-          <p>Multiple individually insulated cores are bundled inside a common outer sheath. A twin-core cable has a live and neutral. A 3-core cable adds an earth conductor. The colour coding (Brown = Live, Blue = Neutral, Green-Yellow = Earth per IEC 60446) identifies each core. Used for fixed domestic wiring, connecting switches, sockets, and appliances.</p>
+<p style="margin-top: 10px;"><strong>3. Classification by Insulation Material:</strong></p>
+<p><strong>VIR</strong> uses vulcanized rubber over tinned copper but is now rarely used due to moisture absorption. <strong>PVC</strong> is most common, durable and moisture-proof. <strong>TRS/CTS</strong> has a tough rubber/cab-tyre sheath for moisture-prone areas. <strong>Lead-sheathed</strong> cable protects against moisture and chemical action. <strong>Weatherproof</strong> cable is designed for outdoor exposure. <strong>XLPE</strong> is used for high-temperature and high-voltage applications.</p>
 
-          <p style="margin-top: 10px;"><strong>4. Coaxial Cable:</strong></p>
-          <p>Has a centre conductor, surrounded by solid or foam insulation, then a braided or foil metallic shield, and an outer PVC jacket. The shield blocks external electromagnetic interference from reaching the centre conductor and also prevents the signal inside from radiating out. Used for cable TV, antenna connections, and RF signal transmission.</p>
+<p style="margin-top: 10px;"><strong>4. Classification by Construction:</strong></p>
+<p><strong>Solid wire</strong> has one solid conductor and is used for fixed wiring. <strong>Stranded wire</strong> has many strands and is more flexible. <strong>Flexible cable</strong> uses very fine strands and is used for appliances/portable equipment. <strong>Armoured cable</strong> has steel wire or tape protection and is used underground or where mechanical protection is required.</p>
 
-          <p style="margin-top: 10px;"><strong>5. Armoured Cable (SWA — Steel Wire Armoured):</strong></p>
-          <p>Has conductors insulated individually, then bundled inside an inner sheath, then wrapped with a layer of <strong>galvanised steel wires</strong>, and finally an outer PVC jacket. The steel armour provides mechanical protection against crushing, rodent attack, and accidental digging. Used for underground power distribution, outdoor installations, and industrial power supply.</p>
+<p style="margin-top: 10px;"><strong>5. Classification by Material, Voltage and Application:</strong></p>
+<p><strong>Copper</strong> has high conductivity and is widely used in house wiring. <strong>Aluminium</strong> is lighter and cheaper, used in transmission and large installations. <strong>Tinned copper</strong> resists corrosion. Voltage grades include <strong>LV</strong> up to 1 kV, <strong>MV</strong> 1–33 kV, <strong>HV</strong> 33–220 kV and <strong>EHV</strong> above 220 kV. Applications include house wiring, underground cables, overhead cables and control cables.</p>
         </div>
       </div>
     </div>
@@ -4667,6 +4684,7 @@ function show(id, el) {
 <button id="toTop" type="button">Back to Top</button>
 </body>
 </html>
+
 
 
 
